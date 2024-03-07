@@ -18,7 +18,7 @@
 
     <div class="sm:grid grid-cols-2 gap-20 w-4/5 mx-auto py-15 border-b border-gray-200">
         <div>
-            <img src="https://cdn.pixabay.com/photo/2014/05/03/01/03/laptop-336704_960_720.jpg" width="700" alt="">
+            <img src="./images/60363f071cf33-This is my new post.jpg" width="700"  alt="img1">
         </div>
 
         <div class="m-auto sm:m-auto text-left w-4/5 block">
@@ -94,7 +94,7 @@
             </div>
         </div>
         <div>
-            <img src="https://cdn.pixabay.com/photo/2014/05/03/01/03/laptop-336704_960_720.jpg" alt="">
+            <img src="./images/top25modernpcgames-slideshow-1663951022529.jpg" alt="img">
         </div>
     </div>
 @endsection

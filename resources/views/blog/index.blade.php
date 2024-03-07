@@ -4,8 +4,11 @@
 <div class="w-4/5 m-auto text-center">
     <div class="py-15 border-b border-gray-200">
         <h1 class="text-6xl">
-            Blog Posts
+           MY Blog Posts
         </h1>
+    </div>
+    <div>
+        <img src="./images/top25modernpcgames-slideshow-1663951022529.jpg" alt="img">
     </div>
 </div>
 
@@ -30,7 +33,7 @@
 @foreach ($posts as $post)
     <div class="sm:grid grid-cols-2 gap-20 w-4/5 mx-auto py-15 border-b border-gray-200">
         <div>
-            <img src="{{ asset('images/' . $post->image_path) }}" alt="">
+            <img src="{{ asset('images/' . $post->image_path) }}" alt="img2">
         </div>
         <div>
             <h2 class="text-gray-700 font-bold text-5xl pb-4">
