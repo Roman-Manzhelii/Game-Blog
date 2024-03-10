@@ -13,12 +13,13 @@
 </div>
 
 @if (session()->has('message'))
-    <div class="w-4/5 m-auto mt-10 pl-2">
-        <p class="w-2/6 mb-4 text-gray-50 bg-green-500 rounded-2xl py-4">
+    <div class="w-full m-auto mt-10 pl-2">
+        <p class="mb-4 text-black bg-blue-300 rounded-lg py-4 px-6 text-lg">
             {{ session()->get('message') }}
         </p>
     </div>
 @endif
+
 
 @if (Auth::check())
     <div class="pt-15 w-4/5 m-auto">

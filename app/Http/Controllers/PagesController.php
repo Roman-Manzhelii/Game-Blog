@@ -10,4 +10,20 @@ class PagesController extends Controller
     {
         return view('index');
     }
+
+    public function reviews()
+    {
+        return view('reviews.index');
+    }
+
+    public function guides()
+{
+    return view('guides.index');
+}
+
+
+    public function news()
+    {
+        return view('news.index');
+    }
 }
