@@ -4,13 +4,13 @@
 <div class="container mx-auto px-4 py-8">
     <div class="bg-white p-6 rounded shadow">
         <h1 class="text-3xl font-semibold mb-4">{{ $review->title }}</h1>
-        
-        <p class="text-gray-700 mb-4">Rating: {{ $review->rating }} / 5</p>
-        <div class="mb-4">
-            <img src="./images/top25modernpcgames-slideshow-1663951022529.jpg" alt="Game image" class="w-full object-cover rounded">
-        </div>
-
+        @if($review->image_path)
+            <div class="mb-4">
+                <img src="{{ asset('images/' . $review->image_path) }}" alt="Game image" class="w-full object-cover rounded">
+            </div>
+        @endif
         <p class="text-gray-700 whitespace-pre-line">{{ $review->content }}</p>
+        <p class="text-gray-700 mb-4">Rating: {{ $review->rating }} / 5</p>
         <p>Reviewed by: {{ $review->user->name }}</p>
         <p class="text-sm text-gray-500">Published on: {{ $review->created_at->toFormattedDateString() }}</p>
         @auth

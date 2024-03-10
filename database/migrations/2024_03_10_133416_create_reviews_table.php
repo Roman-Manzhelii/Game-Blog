@@ -17,11 +17,11 @@ class CreateReviewsTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('content');
-            $table->unsignedTinyInteger('rating'); // Від 1 до 5, наприклад
+            $table->unsignedTinyInteger('rating'); // Від 1 до 5
+            $table->string('image_path')->nullable(); // Шлях до зображення рецензії
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
-        
     }
 
     /**

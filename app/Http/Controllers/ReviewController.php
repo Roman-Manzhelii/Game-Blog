@@ -42,17 +42,23 @@ class ReviewController extends Controller
             'title' => 'required|max:255',
             'content' => 'required',
             'rating' => 'required|numeric|min:1|max:5',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
         ]);
+    
+        $newImageName = uniqid() . '-' . $request->title . '.' . $request->image->extension();
+        $request->image->move(public_path('images'), $newImageName);
 
         $review = new Review;
         $review->title = $request->title;
         $review->content = $request->content;
         $review->rating = $request->rating;
         $review->user_id = auth()->user()->id;
+        $review->image_path = $newImageName;
         $review->save();
-
+    
         return redirect()->route('reviews.index')->with('success', 'Review created successfully.');
     }
+    
 
 
     /**
@@ -94,16 +100,24 @@ class ReviewController extends Controller
             'title' => 'required|max:255',
             'content' => 'required',
             'rating' => 'required|numeric|min:1|max:5',
+            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
         ]);
-
+    
         $review = Review::findOrFail($id);
+        
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('reviews', 'public');
+            $review->image_path = $imagePath;
+        }
+    
         $review->title = $request->title;
         $review->content = $request->content;
         $review->rating = $request->rating;
         $review->save();
-
+    
         return redirect()->route('reviews.index')->with('success', 'Review updated successfully.');
     }
+    
 
 
     /**
