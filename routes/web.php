@@ -16,3 +16,6 @@ Auth::routes();
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/guides', [PagesController::class, 'guides'])->name('guides');
 Route::get('/news', [PagesController::class, 'news'])->name('news');
+Route::get('/phpinfo', function () {
+    return file_get_contents(public_path('phpinfo.php'));
+});

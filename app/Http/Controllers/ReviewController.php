@@ -43,10 +43,17 @@ class ReviewController extends Controller
             'content' => 'required',
             'rating' => 'required|numeric|min:1|max:5',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
+            'video' => 'nullable|file|mimes:mp4,mov|max:100000',
         ]);
     
         $newImageName = uniqid() . '-' . $request->title . '.' . $request->image->extension();
         $request->image->move(public_path('images'), $newImageName);
+
+        $newVideoName = null;
+        if ($request->hasFile('video')) {
+            $newVideoName = uniqid() . '-' . $request->title . '.' . $request->video->extension();
+            $request->video->move(public_path('videos'), $newVideoName);
+        }
 
         $review = new Review;
         $review->title = $request->title;
@@ -54,6 +61,7 @@ class ReviewController extends Controller
         $review->rating = $request->rating;
         $review->user_id = auth()->user()->id;
         $review->image_path = $newImageName;
+        $review->video_path = $newVideoName;
         $review->save();
     
         return redirect()->route('reviews.index')->with('success', 'Review created successfully.');
@@ -101,22 +109,41 @@ class ReviewController extends Controller
             'content' => 'required',
             'rating' => 'required|numeric|min:1|max:5',
             'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
+            'video' => 'nullable|file|mimes:mp4,mov|max:100000',
         ]);
     
         $review = Review::findOrFail($id);
         
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('reviews', 'public');
-            $review->image_path = $imagePath;
+            // Видаляємо старе зображення, якщо воно існує
+            if ($review->image_path && file_exists(public_path('images/' . $review->image_path))) {
+                unlink(public_path('images/' . $review->image_path));
+            }
+            $newImageName = uniqid() . '-' . $request->title . '.' . $request->image->extension();
+            $request->image->move(public_path('images'), $newImageName);
+            $review->image_path = $newImageName;
         }
-    
-        $review->title = $request->title;
-        $review->content = $request->content;
-        $review->rating = $request->rating;
-        $review->save();
-    
-        return redirect()->route('reviews.index')->with('success', 'Review updated successfully.');
-    }
+
+        if ($request->hasFile('video')) {
+            // Видаляємо старе відео, якщо воно існує
+            if ($review->video_path && file_exists(public_path('videos/' . $review->video_path))) {
+                unlink(public_path('videos/' . $review->video_path));
+            }
+
+            // Зберігаємо нове відео
+            $newVideoName = uniqid() . '-' . $request->title . '.' . $request->video->extension();
+            $request->video->move(public_path('videos'), $newVideoName);
+            $review->video_path = $newVideoName;
+        }
+
+    // Оновлюємо інші поля
+    $review->title = $request->title;
+    $review->content = $request->content;
+    $review->rating = $request->rating;
+    $review->save();
+
+    return redirect()->route('reviews.index')->with('success', 'Review updated successfully.');
+}
     
 
 

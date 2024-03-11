@@ -19,6 +19,7 @@ class CreateReviewsTable extends Migration
             $table->text('content');
             $table->unsignedTinyInteger('rating'); // Від 1 до 5
             $table->string('image_path')->nullable(); // Шлях до зображення рецензії
+            $table->string('video_path')->nullable(); // Додаємо нове поле для шляху відео
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

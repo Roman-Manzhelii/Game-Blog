@@ -16,7 +16,7 @@
         @forelse ($reviews as $review)
             <div class="max-w-sm rounded overflow-hidden shadow-lg">
                 @if ($review->image_path)
-                    <img class="w-full" src="{{ asset('images/' . $review->image_path) }}" alt="Game image">
+                <img src="{{ asset('images/' . $review->image_path) }}" alt="Game image" class="w-full h-64 object-cover rounded-lg">
                 @endif
                 <div class="px-6 py-4">
                     <div class="font-bold text-xl mb-2">{{ $review->title }}</div>
@@ -38,7 +38,7 @@
                     <form action="{{ route('reviews.destroy', $review->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button>
+                        <button type="submit" onclick="return confirm('Are you sure you want to delete this review?')" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button>
                     </form>
                 </div>
             @endif
