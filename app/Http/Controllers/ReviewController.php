@@ -41,7 +41,7 @@ class ReviewController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'content' => 'required',
-            'rating' => 'required|numeric|min:1|max:5',
+            'rating' => 'required|numeric|min:1|max:100',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
             'video' => 'nullable|file|mimes:mp4,mov|max:100000',
         ]);
@@ -107,7 +107,7 @@ class ReviewController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'content' => 'required',
-            'rating' => 'required|numeric|min:1|max:5',
+            'rating' => 'required|numeric|min:1|max:100',
             'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
             'video' => 'nullable|file|mimes:mp4,mov|max:100000',
         ]);

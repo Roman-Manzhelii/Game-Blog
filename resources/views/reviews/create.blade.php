@@ -37,7 +37,7 @@
                 </label>
                 <select class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="rating" name="rating" required>
                     <option value="">Select a rating</option>
-                    @for ($i = 1; $i <= 5; $i++)
+                    @for ($i = 1; $i <= 100; $i++)
                         <option value="{{ $i }}">{{ $i }}</option>
                     @endfor
                 </select>

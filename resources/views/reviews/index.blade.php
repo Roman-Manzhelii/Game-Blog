@@ -14,11 +14,11 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse ($reviews as $review)
-            <div class="max-w-sm rounded overflow-hidden shadow-lg">
+            <div class="max-w-sm rounded overflow-hidden shadow-lg flex flex-col justify-between h-full">
                 @if ($review->image_path)
-                <img src="{{ asset('images/' . $review->image_path) }}" alt="Game image" class="w-full h-64 object-cover rounded-lg">
+                    <img src="{{ asset('images/' . $review->image_path) }}" alt="Game image" class="w-full h-64 object-cover rounded-lg">
                 @endif
-                <div class="px-6 py-4">
+                <div class="px-6 py-4 flex-grow">
                     <div class="font-bold text-xl mb-2">{{ $review->title }}</div>
                     <p class="text-gray-700 text-base">
                         {{ Str::limit($review->content, 150) }}
@@ -31,22 +31,22 @@
                     </a>
                 </div>
                 @auth
-            @if (auth()->user()->id === $review->user_id)
-                <div class="flex items-center mt-4">
-                    <a href="{{ route('reviews.edit', $review->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2">Edit</a>
-
-                    <form action="{{ route('reviews.destroy', $review->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" onclick="return confirm('Are you sure you want to delete this review?')" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button>
-                    </form>
-                </div>
-            @endif
-        @endauth
+                    @if (auth()->user()->id === $review->user_id)
+                        <div class="px-6 py-2 flex justify-center items-end">
+                            <a href="{{ route('reviews.edit', $review->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2">Edit</a>
+    
+                            <form action="{{ route('reviews.destroy', $review->id) }}" method="POST" class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" onclick="return confirm('Are you sure you want to delete this review?')" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button>
+                            </form>
+                        </div>
+                    @endif
+                @endauth
             </div>
         @empty
             <p class="text-center text-gray-500">No reviews yet.</p>
         @endforelse
-    </div>
+    </div>    
 </div>
 @endsection
