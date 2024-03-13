@@ -4,16 +4,6 @@
 <div class="container mx-auto px-4 py-8">
     <h1 class="text-3xl font-semibold mb-8 text-center">Create a New Review</h1>
 
-    @if ($errors->any())
-    <div class="mb-4">
-        <ul class="list-disc list-inside text-red-500">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
     <div class="w-full max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
         <form method="POST" action="{{ route('reviews.store') }}" enctype="multipart/form-data">
             @csrf

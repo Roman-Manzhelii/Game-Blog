@@ -3,18 +3,6 @@
 @section('content')
 <div class="container mx-auto px-4 py-8">
     <h1 class="text-3xl font-semibold mb-6">Edit Review</h1>
-
-    @if ($errors->any())
-    <div class="mb-4">
-        <ul class="list-disc list-inside text-red-500">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
-
     <form method="POST" action="{{ route('reviews.update', $review->id) }}" enctype="multipart/form-data" class="w-full max-w-2xl bg-white rounded-lg shadow-md p-6">
         @csrf
         @method('PUT')
