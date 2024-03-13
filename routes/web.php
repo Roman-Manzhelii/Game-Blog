@@ -26,4 +26,5 @@ Route::get('/phpinfo', function () {
 Route::post('/comments/{review}', [CommentsController::class, 'store'])->name('comments.store');
 Route::get('/comments/{comment}/edit', [CommentsController::class, 'edit'])->name('comments.edit');
 Route::put('/comments/{comment}', [CommentsController::class, 'update'])->name('comments.update');
+Route::delete('/comments/{comment}', [CommentsController::class, 'destroy'])->name('comments.destroy');
 
