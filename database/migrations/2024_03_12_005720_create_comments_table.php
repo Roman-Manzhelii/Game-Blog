@@ -14,7 +14,7 @@ class CreateCommentsTable extends Migration
             $table->unsignedBigInteger('review_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
-
+            $table->boolean('is_deleted')->default(false);
             $table->foreign('review_id')->references('id')->on('reviews')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 

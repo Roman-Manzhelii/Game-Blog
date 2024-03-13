@@ -45,7 +45,6 @@
                 @endauth
             </div>
         @empty
-            <p class="text-center text-gray-500">No reviews yet.</p>
         @endforelse
     </div>    
 </div>
