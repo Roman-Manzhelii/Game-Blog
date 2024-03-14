@@ -13,8 +13,8 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse ($guides as $guide)
             <div class="max-w-sm rounded-lg overflow-hidden shadow-lg flex flex-col justify-between h-full bg-gray-100">
-                @if ($guide->image_path)
-                    <img src="{{ asset('images/' . $guide->image_path) }}" alt="" class="w-full h-64 object-cover rounded-lg">
+                @if($guide->firstImage)
+                    <img src="{{ asset('images/' . $guide->firstImage->path) }}" alt="" class="w-full h-64 object-cover rounded-lg">
                 @endif
                 <div class="px-6 py-4 flex-grow">
                     <div class="font-bold text-xl mb-2">{{ $guide->title }}</div>
@@ -27,7 +27,8 @@
                         Read More
                     </a>
                 </div>
-
+                @auth
+                    @if (auth()->user()->id === $guide->user_id)
                     <div class="px-6 py-2 flex justify-center items-end">
                         <a href="{{ route('guides.edit', $guide->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2">Edit</a>
                         <form action="{{ route('guides.destroy', $guide->id) }}" method="POST" class="inline">
@@ -36,6 +37,8 @@
                             <button type="submit" onclick="return confirm('Are you sure you want to delete this guide?')" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button>
                         </form>
                     </div>
+                    @endif
+                @endauth
             </div>
         @empty
         @endforelse

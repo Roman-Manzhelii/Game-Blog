@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .game-image {
+        max-height: 800px;
+    }
+
+</style>
+
 <div class="container mx-auto px-4 py-8">
     <h1 class="text-3xl font-semibold mb-6">Edit Review</h1>
     <form method="POST" action="{{ route('reviews.update', $review->id) }}" enctype="multipart/form-data" class="w-full max-w-2xl bg-white rounded-lg shadow-md p-6">
@@ -8,34 +15,34 @@
         @method('PUT')
 
         <div class="mb-4">
-            <label for="title" class="block mb-2 text-sm font-medium text-gray-700">Game Title</label>
+            <label for="title" class="block mb-2 font-bold text-gray-700">Game Title</label>
             <input type="text" id="title" name="title" value="{{ $review->title }}" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40" required>
         </div>
 
         <div class="mb-4">
-            <label for="content" class="block mb-2 text-sm font-medium text-gray-700">Review Content</label>
+            <label for="content" class="block mb-2 font-bold text-gray-700">Review Content</label>
             <textarea id="content" name="content" rows="4" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40" required>{{ $review->content }}</textarea>
         </div>
 
         <div class="mb-4">
-            <label for="rating" class="block mb-2 text-sm font-medium text-gray-700">Rating</label>
+            <label for="rating" class="block mb-2 font-bold text-gray-700">Rating</label>
             <input type="number" id="rating" name="rating" value="{{ $review->rating }}" min="1" max="100" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40" required>
         </div>
 
         <div class="mb-4">
-            <label for="image" class="block mb-2 text-sm font-medium text-gray-700">Game Image</label>
+            <label for="image" class="block mb-2 font-bold text-gray-700">Game Image</label>
             @if($review->image_path)
                 <div class="mb-4">
-                    <img src="{{ asset('images/' . $review->image_path) }}" alt="" class="w-full object-cover rounded">
+                    <img src="{{ asset('images/' . $review->image_path) }}" alt="" class="game-image w-full object-cover rounded">
                 </div>
             @endif
             <input type="file" id="image" name="image" accept="image/*" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40" required>
         </div>
 
         <div class="mb-4">
-            <label for="video" class="block mb-2 text-sm font-medium text-gray-700">Review Video (optional):</label>
+            <label for="video" class="block mb-2 font-bold text-gray-700">Review Video (optional):</label>
             @if($review->video_path)
-                <video width="320" height="240" controls>
+                <video width="100%" height="auto" controls class="w-full object-cover rounded">
                     <source src="{{ asset('videos/' . $review->video_path) }}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>

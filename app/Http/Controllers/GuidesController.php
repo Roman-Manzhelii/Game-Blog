@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Arr;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -35,7 +36,7 @@ class GuidesController extends Controller
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5048',
             'videos' => 'nullable|array',
-            'videos.*' => 'file|mimes:mp4,mov,avi|max:100000',
+            'videos.*' => 'file|mimes:mp4,mov|max:100000',
         ]);
     
         // Exclude 'images' and 'videos' from mass assignment
@@ -88,41 +89,52 @@ class GuidesController extends Controller
             'videos' => 'nullable|array',
             'videos.*' => 'file|mimes:mp4,mov|max:100000',
         ]);
-
+    
         $guide = Guide::findOrFail($id);
-
-        // Exclude 'images' and 'videos' from mass assignment
-        $guideData = array_except($validatedData, ['images', 'videos']);
-        $guide->update($guideData);
-
-        // Handle Image Uploads
-        // Note: This example doesn't delete the old images/videos. You might want to add that.
+    
+        // Перевіряємо, чи були завантажені нові зображення або відео
+        if ($request->hasFile('images') ) {
+            // Видаляємо старі зображення та відео
+            foreach ($guide->images as $image) {
+                File::delete(public_path('images/' . $image->path));
+                $image->delete(); // Видаляємо запис із бази даних
+            }
+        }
+            if ($request->hasFile('videos')) {
+            foreach ($guide->videos as $video) {
+                File::delete(public_path('videos/' . $video->path));
+                $video->delete(); // Видаляємо запис із бази даних
+            }
+        }
+    
+        $guide->update(Arr::except($validatedData, ['images', 'videos']));
+    
+        // Обробка завантаження нових зображень
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $newImageName = uniqid() . '.' . $image->extension();
-                $image->move(public_path('images'), $newImageName); // Move file to public/images
+                $image->move(public_path('images'), $newImageName);
                 GuideImage::create([
                     'guide_id' => $guide->id,
-                    'path' => 'images/' . $newImageName, // Store path in DB
+                    'path' => $newImageName,
                 ]);
             }
         }
-
-        // Handle Video Uploads
+    
+        // Обробка завантаження нових відео
         if ($request->hasFile('videos')) {
             foreach ($request->file('videos') as $video) {
                 $newVideoName = uniqid() . '.' . $video->extension();
-                $video->move(public_path('videos'), $newVideoName); // Move file to public/videos
+                $video->move(public_path('videos'), $newVideoName);
                 GuideVideo::create([
                     'guide_id' => $guide->id,
-                    'path' => 'videos/' . $newVideoName, // Store path in DB
+                    'path' => $newVideoName,
                 ]);
             }
         }
-
+    
         return redirect()->route('guides.index')->with('success', 'Guide updated successfully.');
     }
-
     public function show($id)
     {
         $guide = Guide::findOrFail($id);
@@ -134,8 +146,19 @@ class GuidesController extends Controller
     public function destroy($id)
     {
         $guide = Guide::findOrFail($id);
+    
+        // Видаляємо зображення та відео
+        foreach ($guide->images as $image) {
+            File::delete(public_path('images/' . $image->path));
+            $image->delete();
+        }
+        foreach ($guide->videos as $video) {
+            File::delete(public_path('videos/' . $video->path));
+            $video->delete();
+        }
+    
         $guide->delete();
-
+    
         return redirect()->route('guides.index')->with('success', 'Guide deleted successfully.');
     }
 

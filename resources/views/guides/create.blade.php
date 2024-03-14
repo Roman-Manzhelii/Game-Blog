@@ -44,4 +44,10 @@
         </form>
     </div>
 </div>
+<script src="https://cdn.tiny.cloud/1/vufhsbpswonckewjcb0pt09lklxu66q8w27glg5nqki9tv6t/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+  tinymce.init({
+    selector: '#content'
+  });
+</script>
 @endsection

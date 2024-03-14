@@ -8,20 +8,20 @@ use App\Models\Game;
 
 class GameController extends Controller
 {
-
+    // Показати список ігор
     public function index()
     {
         $games = Game::all();
         return view('games.index', compact('games'));
     }
 
-
+    // Форма для створення нової гри
     public function create()
     {
         return view('games.create');
     }
 
-
+    // Збереження нової гри
     public function store(Request $request)
     {
         $request->validate([
@@ -59,21 +59,21 @@ class GameController extends Controller
         return redirect()->route('games.index')->with('success', 'Game created successfully.');
     }
 
-
+    // Показати деталі конкретної гри
     public function show($id)
     {
         $game = Game::findOrFail($id);
         return view('games.show', compact('game'));
     }
 
-
+    // Форма для редагування гри
     public function edit($id)
     {
         $game = Game::findOrFail($id);
         return view('games.edit', compact('game'));
     }
 
-
+    // Оновлення гри
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -119,7 +119,7 @@ class GameController extends Controller
         return redirect()->route('games.index')->with('success', 'Game updated successfully.');
     }
 
-
+    // Видалення гри
     public function destroy($id)
     {
         $game = Game::findOrFail($id);

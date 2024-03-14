@@ -32,4 +32,14 @@ class Guide extends Model
     {
         return $this->hasMany(GuideVideo::class);
     }
+
+    public function firstImage()
+    {
+        return $this->hasOne(GuideImage::class)->oldestOfMany();
+    }
+
+    public function firstVideo()
+    {
+        return $this->hasOne(GuideVideo::class)->oldestOfMany();
+    }
 }

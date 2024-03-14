@@ -44,7 +44,7 @@
     }
 
     .deleted-comment {
-    color: #747474; /* світло-сірий колір */
+    color: #747474;
     font-style: italic;
     }
 
@@ -120,8 +120,8 @@
                         <div class="mb-4">
                             <img src="{{ asset('images/' . $review->image_path) }}" alt="" class="game-image w-full object-cover rounded">
                         </div>
-                        <p class="text-gray-800 font-semibold">Reviewed by: {{ $review->user->name }}</p>
-                        <p class="text-sm text-gray-600">Published on: {{ $review->created_at->toFormattedDateString() }}</p>
+                        <p class="text-gray-800 font-semibold mb-1">Reviewed by: {{ $review->user->name }}</p>
+                        <p class="text-gray-800 font-semibold">Published on: {{ $review->created_at->toFormattedDateString() }}</p>
                     </div>
                 </div>
             </div>
