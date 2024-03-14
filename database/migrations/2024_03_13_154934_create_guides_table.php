@@ -19,8 +19,6 @@ class CreateGuidesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('title');
             $table->text('content');
-            $table->string('image_path');
-            $table->string('video_path')->nullable();
             $table->timestamps();
             $table->foreign('game_id')->references('id')->on('games');
             $table->foreign('user_id')->references('id')->on('users');
