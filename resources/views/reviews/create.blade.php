@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-semibold mb-8 text-center">Create a New Review</h1>
+    <h1 class="text-3xl font-semibold mb-8 text-center">Create New Review</h1>
 
     <div class="w-full max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
         <form method="POST" action="{{ route('reviews.store') }}" enctype="multipart/form-data">
@@ -37,7 +37,7 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="image">
                     Review Image
                 </label>
-                <input type="file" id="image" name="image" accept="image/*" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <input type="file" id="image" name="image" accept="image/*" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
             </div>
 
             <div class="mb-4">

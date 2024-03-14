@@ -7,32 +7,32 @@
         @csrf
         @method('PUT')
 
-        <div class="mb-5">
+        <div class="mb-4">
             <label for="title" class="block mb-2 text-sm font-medium text-gray-700">Game Title</label>
             <input type="text" id="title" name="title" value="{{ $review->title }}" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40" required>
         </div>
 
-        <div class="mb-5">
+        <div class="mb-4">
             <label for="content" class="block mb-2 text-sm font-medium text-gray-700">Review Content</label>
             <textarea id="content" name="content" rows="4" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40" required>{{ $review->content }}</textarea>
         </div>
 
-        <div class="mb-5">
+        <div class="mb-4">
             <label for="rating" class="block mb-2 text-sm font-medium text-gray-700">Rating</label>
             <input type="number" id="rating" name="rating" value="{{ $review->rating }}" min="1" max="100" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40" required>
         </div>
 
-        <div class="mb-5">
+        <div class="mb-4">
             <label for="image" class="block mb-2 text-sm font-medium text-gray-700">Game Image</label>
             @if($review->image_path)
                 <div class="mb-4">
-                    <img src="{{ asset('images/' . $review->image_path) }}" alt="Game image" class="w-full object-cover rounded">
+                    <img src="{{ asset('images/' . $review->image_path) }}" alt="" class="w-full object-cover rounded">
                 </div>
             @endif
-            <input type="file" id="image" name="image" accept="image/*" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40">
+            <input type="file" id="image" name="image" accept="image/*" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40" required>
         </div>
 
-        <div class="mb-5">
+        <div class="mb-4">
             <label for="video" class="block mb-2 text-sm font-medium text-gray-700">Review Video (optional):</label>
             @if($review->video_path)
                 <video width="320" height="240" controls>

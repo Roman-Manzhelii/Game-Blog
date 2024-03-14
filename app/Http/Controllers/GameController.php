@@ -26,21 +26,21 @@ class GameController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'developer' => 'nullable|string',
-            'release_date' => 'nullable|date',
-            'genre' => 'nullable|string',
-            'platform' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
+            'description' => 'required|string',
+            'developer' => 'required|string',
+            'release_date' => 'required|date',
+            'genre' => 'required|string',
+            'platform' => 'required|array',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
             'video' => 'nullable|file|mimes:mp4,mov|max:100000',
         ]);
 
-        $newImageName = uniqid() . '-' . $request->name . '.' . $request->image->extension();
+        $newImageName = uniqid() . '.' . $request->image->extension();
         $request->image->move(public_path('images'), $newImageName);
 
         $newVideoName = null;
         if ($request->hasFile('video')) {
-            $newVideoName = uniqid() . '-' . $request->name . '.' . $request->video->extension();
+            $newVideoName = uniqid() . '.' . $request->video->extension();
             $request->video->move(public_path('videos'), $newVideoName);
         }
 
@@ -50,7 +50,7 @@ class GameController extends Controller
         $game->developer = $request->developer;
         $game->release_date = $request->release_date;
         $game->genre = $request->genre;
-        $game->platform = $request->platform;
+        $game->platform = json_encode($request->input('platform'));
         $game->image_path = $newImageName;
         $game->video_path = $newVideoName;
         $game->save();
@@ -67,7 +67,7 @@ class GameController extends Controller
     }
 
     // Форма для редагування гри
-    public function edit(Game $game)
+    public function edit($id)
     {
         $game = Game::findOrFail($id);
         return view('games.edit', compact('game'));
@@ -78,11 +78,11 @@ class GameController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'developer' => 'nullable|string',
-            'release_date' => 'nullable|date',
-            'genre' => 'nullable|string',
-            'platform' => 'nullable|string',
+            'description' => 'required|string',
+            'developer' => 'required|string',
+            'release_date' => 'required|date',
+            'genre' => 'required|string',
+            'platform' => 'required|array',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
             'video' => 'nullable|file|mimes:mp4,mov|max:100000',
         ]);
@@ -93,7 +93,7 @@ class GameController extends Controller
             if ($game->image_path && file_exists(public_path('images/' . $game->image_path))) {
                 unlink(public_path('images/' . $game->image_path));
             }
-            $newImageName = uniqid() . '-' . $request->name . '.' . $request->image->extension();
+            $newImageName = uniqid() . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $newImageName);
             $game->image_path = $newImageName;
         }
@@ -103,7 +103,7 @@ class GameController extends Controller
                 unlink(public_path('videos/' . $game->video_path));
             }
 
-            $newVideoName = uniqid() . '-' . $request->name . '.' . $request->video->extension();
+            $newVideoName = uniqid() . '.' . $request->video->extension();
             $request->video->move(public_path('videos'), $newVideoName);
             $game->video_path = $newVideoName;
         }
@@ -113,7 +113,7 @@ class GameController extends Controller
         $game->developer = $request->developer;
         $game->release_date = $request->release_date;
         $game->genre = $request->genre;
-        $game->platform = $request->platform;
+        $game->platform = json_encode($request->input('platform'));
         $game->save();
 
         return redirect()->route('games.index')->with('success', 'Game updated successfully.');

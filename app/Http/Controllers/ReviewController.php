@@ -46,12 +46,12 @@ class ReviewController extends Controller
             'video' => 'nullable|file|mimes:mp4,mov|max:100000',
         ]);
     
-        $newImageName = uniqid() . '-' . $request->title . '.' . $request->image->extension();
+        $newImageName = uniqid() . '.' . $request->image->extension();
         $request->image->move(public_path('images'), $newImageName);
 
         $newVideoName = null;
         if ($request->hasFile('video')) {
-            $newVideoName = uniqid() . '-' . $request->title . '.' . $request->video->extension();
+            $newVideoName = uniqid() . '.' . $request->video->extension();
             $request->video->move(public_path('videos'), $newVideoName);
         }
 
@@ -119,7 +119,7 @@ class ReviewController extends Controller
             if ($review->image_path && file_exists(public_path('images/' . $review->image_path))) {
                 unlink(public_path('images/' . $review->image_path));
             }
-            $newImageName = uniqid() . '-' . $request->title . '.' . $request->image->extension();
+            $newImageName = uniqid() . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $newImageName);
             $review->image_path = $newImageName;
         }
@@ -131,7 +131,7 @@ class ReviewController extends Controller
             }
 
             // Зберігаємо нове відео
-            $newVideoName = uniqid() . '-' . $request->title . '.' . $request->video->extension();
+            $newVideoName = uniqid() . '.' . $request->video->extension();
             $request->video->move(public_path('videos'), $newVideoName);
             $review->video_path = $newVideoName;
         }
