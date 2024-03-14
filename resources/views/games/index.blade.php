@@ -5,9 +5,11 @@
     <h1 class="text-5xl font-bold italic tracking-wide text-center text-gray-800 mb-8">Games</h1>
     
     @auth
-        <div class="mb-6 text-right">
-            <a href="{{ route('games.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add New Game</a>
-        </div>
+        @can('manage-games', Auth::user())
+            <div class="mb-6 text-right">
+                <a href="{{ route('games.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add New Game</a>
+            </div>
+        @endcan
     @endauth
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -27,14 +29,16 @@
                         Read More
                     </a>
                 </div>
-                <div class="px-6 py-2 flex justify-center items-end">
-                    <a href="{{ route('games.edit', $game->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2">Edit</a>
-                    <form action="{{ route('games.destroy', $game->id) }}" method="POST" class="inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" onclick="return confirm('Are you sure you want to delete this game?')" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button>
-                    </form>
-                </div>
+                @can('manage-games', Auth::user())
+                    <div class="px-6 py-2 flex justify-center items-end">
+                        <a href="{{ route('games.edit', $game->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2">Edit</a>
+                        <form action="{{ route('games.destroy', $game->id) }}" method="POST" class="inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" onclick="return confirm('Are you sure you want to delete this game?')" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button>
+                        </form>
+                    </div>
+                @endcan
             </div>
         @empty
         @endforelse
