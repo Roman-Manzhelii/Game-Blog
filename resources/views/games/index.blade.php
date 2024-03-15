@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4 bg-gray-300 min-h-screen">
+<div class="w-full min-h-screen bg-gray-300">
+    <div class="px-4">
     <h1 class="text-5xl font-bold italic tracking-wide text-center text-gray-800 mb-8">Games</h1>
 
     @if(Session::has('error'))
@@ -25,7 +26,7 @@
         @forelse ($games as $game)
             <div class="max-w-sm rounded-lg overflow-hidden shadow-lg flex flex-col justify-between h-full bg-gray-100">
                 @if ($game->image_path)
-                    <img src="{{ asset('images/' . $game->image_path) }}" alt="" class="w-full h-64 object-cover rounded-lg">
+                    <img src="{{ asset('images/' . $game->image_path) }}" alt="" class="w-full h-96 object-cover rounded-lg">
                 @endif
                 <div class="px-6 py-4 flex-grow">
                     <div class="font-bold text-xl mb-2">{{ $game->name }}</div>
@@ -51,6 +52,8 @@
             </div>
         @empty
         @endforelse
-    </div>    
+    </div>  
+</div>  
 </div>
+
 @endsection

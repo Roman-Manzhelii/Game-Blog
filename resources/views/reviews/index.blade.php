@@ -16,7 +16,7 @@
         @forelse ($reviews as $review)
             <div class="max-w-sm rounded-lg overflow-hidden shadow-lg flex flex-col justify-between h-full bg-gray-100">
                 @if ($review->image_path)
-                    <img src="{{ asset('images/' . $review->image_path) }}" alt="" class="w-full h-64 object-cover rounded-lg">
+                    <img src="{{ asset('images/' . $review->image_path) }}" alt="" class="w-full h-72 object-cover rounded-lg">
                 @endif
                 <div class="px-6 py-4 flex-grow">
                     <div class="font-bold text-xl mb-2">{{ $review->title }}</div>

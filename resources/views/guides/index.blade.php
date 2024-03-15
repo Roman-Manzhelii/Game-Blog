@@ -14,7 +14,7 @@
         @forelse ($guides as $guide)
             <div class="max-w-sm rounded-lg overflow-hidden shadow-lg flex flex-col justify-between h-full bg-gray-100">
                 @if($guide->firstImage)
-                    <img src="{{ asset('images/' . $guide->firstImage->path) }}" alt="" class="w-full h-64 object-cover rounded-lg">
+                    <img src="{{ asset('images/' . $guide->firstImage->path) }}" alt="" class="w-full h-72 object-cover rounded-lg">
                 @endif
                 <div class="px-6 py-4 flex-grow">
                     <div class="font-bold text-xl mb-2">{{ $guide->title }}</div>
