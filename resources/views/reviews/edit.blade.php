@@ -36,7 +36,7 @@
                     <img src="{{ asset('images/' . $review->image_path) }}" alt="" class="game-image w-full object-cover rounded">
                 </div>
             @endif
-            <input type="file" id="image" name="image" accept="image/*" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40" required>
+            <input type="file" id="image" name="image" accept="image/*" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40">
         </div>
 
         <div class="mb-4">

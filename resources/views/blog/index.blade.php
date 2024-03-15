@@ -7,9 +7,6 @@
            MY Blog Posts
         </h1>
     </div>
-    <div>
-        <img src="./images/top25modernpcgames-slideshow-1663951022529.jpg" alt="img">
-    </div>
 </div>
 
 @if (session()->has('message'))
@@ -22,7 +19,7 @@
 
 
 @if (Auth::check())
-    <div class="pt-15 w-4/5 m-auto">
+    <div class="pt-15 w-4/5 m-auto mb-10">
         <a 
             href="/blog/create"
             class="bg-blue-500 uppercase bg-transparent text-gray-100 text-xs font-extrabold py-3 px-5 rounded-3xl">

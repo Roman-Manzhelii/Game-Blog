@@ -61,60 +61,62 @@
         <div class="flex flex-wrap -mx-2">
             <!-- Video or Placeholder Container -->
             <div class="w-full lg:w-2/3 px-2 mb-4">
-                @if($review->video_path)
-                    <div class="rounded overflow-hidden shadow-lg bg-white">
-                        <video width="100%" height="auto" controls>
-                            @php
-                                $videoType = 'video/' . pathinfo($review->video_path, PATHINFO_EXTENSION);
-                            @endphp
-                            <source src="{{ asset('videos/' . $review->video_path) }}" type="{{ $videoType }}">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                @else
-                    <div class="rounded overflow-hidden shadow-lg bg-white">
-                        <video width="100%" height="auto" controls>
-                            <source src="{{ asset('videos/default.mp4') }}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                @endif
+                <div>
+                    @if($review->video_path)
+                        <div class="rounded overflow-hidden shadow-lg bg-white">
+                            <video width="100%" height="auto" controls>
+                                @php
+                                    $videoType = 'video/' . pathinfo($review->video_path, PATHINFO_EXTENSION);
+                                @endphp
+                                <source src="{{ asset('videos/' . $review->video_path) }}" type="{{ $videoType }}">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    @else
+                        <div class="rounded overflow-hidden shadow-lg bg-white">
+                            <video width="100%" height="auto" controls>
+                                <source src="{{ asset('videos/default.mp4') }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    @endif
+                </div>  
+                <div class="flex justify-end">
+                    <!-- Rating Block -->
+                    @php
+                    $ratingValue = $review->rating; // Assuming $review->rating is now between 1 and 100
+                    $ratingColor = 'bg-green-500'; // Default color
+                    if ($ratingValue <= 10) {
+                        $ratingColor = 'bg-red-500';
+                    } elseif ($ratingValue <= 20) {
+                        $ratingColor = 'bg-red-400';
+                    } elseif ($ratingValue <= 30) {
+                        $ratingColor = 'bg-orange-400';
+                    } elseif ($ratingValue <= 40) {
+                        $ratingColor = 'bg-yellow-500';
+                    } elseif ($ratingValue <= 50) {
+                        $ratingColor = 'bg-yellow-400';
+                    } elseif ($ratingValue <= 60) {
+                        $ratingColor = 'bg-green-400';
+                    } elseif ($ratingValue <= 70) {
+                        $ratingColor = 'bg-teal-400';
+                    } elseif ($ratingValue <= 80) {
+                        $ratingColor = 'bg-blue-500';
+                    } elseif ($ratingValue <= 90) {
+                        $ratingColor = 'bg-indigo-500';
+                    } elseif ($ratingValue <= 100) {
+                        $ratingColor = 'bg-purple-500';
+                    }
+                @endphp
+                <span class="block {{ $ratingColor }} mb-4 mt-4 p-4 rounded shadow-lg flex justify-center items-center text-white font-bold rounded-lg text-6xl w-36 h-36">
+                    {{ $review->rating }}
+                </span>  
+                </div>
             </div>
             
             
             <!-- Sidebar for Rating, Image, and Author Info -->
             <div class="w-full lg:w-1/3 px-2 mb-4">
-                <div>
-                    <!-- Rating Block -->
-                    @php
-                        $ratingValue = $review->rating; // Assuming $review->rating is now between 1 and 100
-                        $ratingColor = 'bg-green-500'; // Default color
-                        if ($ratingValue <= 10) {
-                            $ratingColor = 'bg-red-500';
-                        } elseif ($ratingValue <= 20) {
-                            $ratingColor = 'bg-red-400';
-                        } elseif ($ratingValue <= 30) {
-                            $ratingColor = 'bg-orange-400';
-                        } elseif ($ratingValue <= 40) {
-                            $ratingColor = 'bg-yellow-500';
-                        } elseif ($ratingValue <= 50) {
-                            $ratingColor = 'bg-yellow-400';
-                        } elseif ($ratingValue <= 60) {
-                            $ratingColor = 'bg-green-400';
-                        } elseif ($ratingValue <= 70) {
-                            $ratingColor = 'bg-teal-400';
-                        } elseif ($ratingValue <= 80) {
-                            $ratingColor = 'bg-blue-500';
-                        } elseif ($ratingValue <= 90) {
-                            $ratingColor = 'bg-indigo-500';
-                        } elseif ($ratingValue <= 100) {
-                            $ratingColor = 'bg-purple-500';
-                        }
-                    @endphp
-                    <span class="block {{ $ratingColor }} mb-4 p-4 rounded shadow-lg flex justify-center items-center text-white font-bold py-2 px-4 rounded-lg text-6xl w-28 h-28">
-                        {{ $review->rating }}
-                    </span>
-                
                     <!-- Image and author info -->
                     <div class="bg-white p-4 rounded shadow-lg">
                         <div class="mb-4">
@@ -123,7 +125,6 @@
                         <p class="text-gray-800 font-semibold mb-1">Reviewed by: {{ $review->user->name }}</p>
                         <p class="text-gray-800 font-semibold">Published on: {{ $review->created_at->toFormattedDateString() }}</p>
                     </div>
-                </div>
             </div>
         </div>
 
