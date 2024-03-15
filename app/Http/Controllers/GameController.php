@@ -123,6 +123,11 @@ class GameController extends Controller
     public function destroy($id)
     {
         $game = Game::findOrFail($id);
+
+        if ($game->guides()->count() > 0) {
+            return redirect()->back()->with('error', 'Cannot delete this game because it has related guides.');
+        }
+
         $game->delete();
         
         return redirect()->route('games.index')->with('success', 'Game deleted successfully.');

@@ -3,7 +3,16 @@
 @section('content')
 <div class="container mx-auto px-4 bg-gray-300 min-h-screen">
     <h1 class="text-5xl font-bold italic tracking-wide text-center text-gray-800 mb-8">Games</h1>
+
+    @if(Session::has('error'))
+        <script>
+            window.onload = function() {
+                alert('{{ Session::get('error') }}');
+            };
+        </script>
+    @endif
     
+
     @auth
         @can('manage-games', Auth::user())
             <div class="mb-6 text-right">

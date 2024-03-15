@@ -3,17 +3,18 @@
 @section('content')
 <div class="container mx-auto px-4 py-8">
     <h1 class="text-3xl font-semibold mb-8 text-center">Create New Guide</h1>
-    <div class="w-full max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
-        <form action="{{ route('guides.store') }}" method="POST" enctype="multipart/form-data">
+    <div class="w-full mx-auto bg-white p-6 rounded-lg shadow-md">
+        <form id="guide-form" action="{{ route('guides.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-4">
                 <label for="title" class="block text-gray-700 font-bold mb-2">Title</label>
                 <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" name="title" required>
             </div>
             
+            <!-- Змінили атрибут required на інший -->
             <div class="mb-4">
                 <label for="content" class="block text-gray-700 font-bold mb-2">Content</label>
-                <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="content" name="content" rows="6" required></textarea>
+                <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="content" name="content" rows="6"></textarea>
             </div>
             
             <div class="mb-4">
@@ -46,8 +47,25 @@
 </div>
 <script src="https://cdn.tiny.cloud/1/vufhsbpswonckewjcb0pt09lklxu66q8w27glg5nqki9tv6t/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
-  tinymce.init({
-    selector: '#content'
-  });
+    document.addEventListener("DOMContentLoaded", function() {
+tinymce.init({
+  selector: '#content',
+  plugins: 'media link anchor',
+  toolbar: 'media link anchor',
+  setup: function (editor) {
+      editor.on('change', function () {
+          editor.save();
+      });
+  }
+});
+
+var form = document.getElementById('guide-form');
+    if(form){
+        form.addEventListener('submit', function() {
+            document.getElementById('content').value = tinymce.get('content').getContent();
+        });
+    }
+});
 </script>
+
 @endsection

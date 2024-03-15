@@ -30,7 +30,6 @@
                     <a class="no-underline hover:underline" href="/reviews">Reviews</a>
                     <a class="no-underline hover:underline" href="/guides">Guides</a>
                     <a class="no-underline hover:underline" href="/games">Games</a>
-                    <a class="no-underline hover:underline" href="/news">News</a>
                     @guest
                         <a class="no-underline hover:underline" href="{{ route('login') }}">{{ __('Login') }}</a>
                         @if (Route::has('register'))
@@ -53,6 +52,7 @@
 
         <div>
             @yield('content')
+            @yield('scripts')
         </div>
 
         <div>

@@ -18,9 +18,6 @@
                 @endif
                 <div class="px-6 py-4 flex-grow">
                     <div class="font-bold text-xl mb-2">{{ $guide->title }}</div>
-                    <p class="text-gray-700 text-base">
-                        {{ Str::limit($guide->content, 150) }}
-                    </p>
                 </div>
                 <div class="px-6 pt-4 pb-2">
                     <a href="{{ route('guides.show', $guide->id) }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

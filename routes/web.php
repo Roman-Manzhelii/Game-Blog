@@ -11,17 +11,13 @@ use App\Http\Controllers\CommentsController;
 
 Route::get('/', [PagesController::class, 'index']);
 
-
+Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('/blog', PostsController::class);   
 Route::resource('/reviews', ReviewController::class);
 Route::resource('/games', GameController::class);
 Route::resource('/guides', GuidesController::class);
 
 Auth::routes();
-
-Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/news', [PagesController::class, 'news'])->name('news');
-
 
 Route::post('/comments/{review}', [CommentsController::class, 'store'])->name('comments.store');
 Route::get('/comments/{comment}/edit', [CommentsController::class, 'edit'])->name('comments.edit');

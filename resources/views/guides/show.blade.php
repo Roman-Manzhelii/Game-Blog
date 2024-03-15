@@ -6,6 +6,56 @@
     .game-image {
         max-height: 500px;
     }
+
+    /* Стилі для контенту гайду */
+    .guide-content h1, .guide-content h2, .guide-content h3, .guide-content h4, .guide-content h5, .guide-content h6 {
+        font-weight: bold;
+    }
+
+    .guide-content h1 {
+        font-size: 2.25rem; /* 36px */
+    }
+
+    .guide-content h2 {
+        font-size: 1.875rem; /* 30px */
+    }
+
+    .guide-content h3 {
+        font-size: 1.5rem; /* 24px */
+    }
+
+    .guide-content h4 {
+        font-size: 1.375; 
+    }
+
+    .guide-content h5 {
+        font-size: 1.250rem; 
+    }
+
+    .guide-content h6 {
+        font-size: 1.125rem; 
+    }
+
+    .guide-content p {
+        font-size: 1rem; /* 16px */
+        margin-bottom: 1rem;
+    }
+
+    .guide-content a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .guide-content a:hover {
+        text-decoration: underline;
+    }
+
+    /* Стилі для зображень */
+    .guide-content img {
+        max-width: 100%;
+        height: auto;
+    }
+
 </style>
 
 <div class="bg-gray-300 min-h-screen">
@@ -15,7 +65,7 @@
         <div class="flex flex-wrap -mx-2">
             <!-- Video or Placeholder Container -->
             <div class="w-full lg:w-2/3 px-2 mb-4">
-                @if($guide->firstVideo->path)
+                @if(isset($guide->firstVideo->path))
                     <div class="rounded overflow-hidden shadow-lg bg-white">
                         <video width="100%" height="auto" controls>
                             @php
@@ -52,7 +102,7 @@
         </div>
 
         <!-- Review Text -->
-        <div class="bg-white p-4 rounded shadow-lg mt-6">
+        <div class="bg-white p-4 rounded shadow-lg mt-6 guide-content">
             {!! $guide->content !!}
         </div>
 
