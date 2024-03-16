@@ -39,16 +39,16 @@ php artisan migrate
 
 ## Screenshots
 
-![Homepage](.\public\images\2345.png)
+![](./public/images/2345.png)
 Home page
 
-![Games](.\public\images\1234.png)  
+![](./public/images/1234.png)  
 *Page Games*
 
-![Guides](.\public\images\3456.png)  
+![](./public/images/3456.png)  
 *Page Guids*
 
-![Dashboard](.\public\images\4567.png)  
+![](./public/images/4567.png)  
 *One of many reviews*
 
 ## Data Structure
