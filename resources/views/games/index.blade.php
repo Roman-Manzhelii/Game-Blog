@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="w-full min-h-screen bg-gray-300">
+<div class="w-full min-h-screen" style="background-color: #131313">
     <div class="px-4">
-    <h1 class="text-5xl font-bold italic tracking-wide text-center text-gray-800 mb-8">Games</h1>
+    <h1 class="text-5xl font-bold italic tracking-wide text-center text-white mb-8">Games</h1>
 
     @if(Session::has('error'))
         <script>
@@ -24,13 +24,13 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse ($games as $game)
-            <div class="max-w-sm rounded-lg overflow-hidden shadow-lg flex flex-col justify-between h-full bg-gray-100">
+            <div style="background-color: #333" class="max-w-sm rounded-lg overflow-hidden shadow-lg flex flex-col justify-between h-full bg-gray-100">
                 @if ($game->image_path)
                     <img src="{{ asset('images/' . $game->image_path) }}" alt="" class="w-full h-96 object-cover rounded-lg">
                 @endif
                 <div class="px-6 py-4 flex-grow">
-                    <div class="font-bold text-xl mb-2">{{ $game->name }}</div>
-                    <p class="text-gray-700 text-base">
+                    <div class="font-bold text-gray-200 text-xl mb-2">{{ $game->name }}</div>
+                    <p class="text-gray-300 text-base">
                         {{ Str::limit($game->description, 150) }}
                     </p>
                 </div>

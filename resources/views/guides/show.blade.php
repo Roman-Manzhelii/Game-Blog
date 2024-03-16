@@ -7,9 +7,17 @@
         max-height: 500px;
     }
 
+    .guide-content {
+    background-color: #333;
+    color: #ccc; 
+    padding: 1rem; 
+    border-radius: 0.5rem;
+}
+
     /* Стилі для контенту гайду */
     .guide-content h1, .guide-content h2, .guide-content h3, .guide-content h4, .guide-content h5, .guide-content h6 {
         font-weight: bold;
+        color: #ffffff;
     }
 
     .guide-content h1 {
@@ -42,11 +50,12 @@
     }
 
     .guide-content a {
-        color: #007bff;
+        color: #4e9af1;
         text-decoration: none;
     }
 
     .guide-content a:hover {
+        color: #a1c9f1;
         text-decoration: underline;
     }
 
@@ -58,9 +67,9 @@
 
 </style>
 
-<div class="bg-gray-300 min-h-screen">
+<div class="min-h-screen" style="background-color: #131313">
     <div class="container mx-auto px-4 py-8">
-        <h1 class="text-5xl font-bold italic uppercase tracking-wide text-center text-gray-800 mb-8">{{ $guide->title }}</h1>
+        <h1 class="text-5xl font-bold italic uppercase tracking-wide text-center text-white mb-8">{{ $guide->title }}</h1>
 
         <div class="flex flex-wrap -mx-2">
             <!-- Video or Placeholder Container -->
@@ -89,20 +98,20 @@
             <div class="w-full lg:w-1/3 px-2 mb-4">
                 <div>
                     <!-- Image and author info -->
-                    <div class="bg-white p-4 rounded shadow-lg">
+                    <div class="p-4 rounded shadow-lg" style="background-color: #333">
                         <div class="mb-4">
                             <img src="{{ asset('images/' . $guide->firstImage->path) }}" alt="" class="game-image w-full object-cover rounded">
                         </div>
-                        <p class=" text-lg text-gray-800 font-bold mb-1">Game: {{ $guide->game->name }}</p>
-                        <p class="text-lg text-gray-800 font-semibold mb-1">Reviewed by: {{ $guide->user->name }}</p>
-                        <p class=" text-lg text-gray-800 font-semibold">Published on: {{ $guide->created_at->toFormattedDateString() }}</p>
+                        <p class=" text-lg text-white font-bold mb-1">Game: {{ $guide->game->name }}</p>
+                        <p class="text-lg text-gray-200 font-semibold mb-1">Reviewed by: {{ $guide->user->name }}</p>
+                        <p class=" text-lg text-gray-200 font-semibold">Published on: {{ $guide->created_at->toFormattedDateString() }}</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Review Text -->
-        <div class="bg-white p-4 rounded shadow-lg mt-6 guide-content">
+        <div class=" p-4 rounded shadow-lg mt-6 guide-content">
             {!! $guide->content !!}
         </div>
 

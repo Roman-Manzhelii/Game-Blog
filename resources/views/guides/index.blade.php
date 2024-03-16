@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="w-full min-h-screen bg-gray-300">
+<div class="w-full min-h-screen" style="background-color: #131313">
     <div class="px-4">
-    <h1 class="text-5xl font-bold italic tracking-wide text-center text-gray-800 mb-8">Guides</h1>
+    <h1 class="text-5xl font-bold italic tracking-wide text-center text-white mb-8">Guides</h1>
     
     @auth
             <div class="mb-6 text-right">
@@ -13,12 +13,12 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse ($guides as $guide)
-            <div class="max-w-sm rounded-lg overflow-hidden shadow-lg flex flex-col justify-between h-full bg-gray-100">
+            <div style="background-color: #333" class="max-w-sm rounded-lg overflow-hidden shadow-lg flex flex-col justify-between h-full" >
                 @if($guide->firstImage)
                     <img src="{{ asset('images/' . $guide->firstImage->path) }}" alt="" class="w-full h-96 object-cover rounded-lg">
                 @endif
                 <div class="px-6 py-4 flex-grow">
-                    <div class="font-bold text-xl mb-2">{{ $guide->title }}</div>
+                    <div class="font-bold text-gray-200 text-xl mb-2">{{ $guide->title }}</div>
                 </div>
                 <div class="px-6 pt-4 pb-2">
                     <a href="{{ route('guides.show', $guide->id) }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

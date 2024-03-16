@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<link href="{{ asset('css/tinymce-custom.css') }}" rel="stylesheet">
 <style>
     .game-image {
         max-height: 800px;
@@ -8,48 +9,49 @@
 
 </style>
 
-<div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-semibold mb-8 text-center">Edit Guide: {{ $guide->title }}</h1>
-    <div class="w-full  mx-auto bg-white p-6 rounded-lg shadow-md">
+<div class="mx-auto px-4 py-8" style="background-color: #131313">
+    <h1 class="text-3xl font-semibold mb-8 text-center text-white">Edit Guide: {{ $guide->title }}</h1>
+
+    <div class="w-full mx-auto p-6 rounded-lg shadow-md" style="background-color: #333">
         <form id="guide-form" action="{{ route('guides.update', $guide->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
         <div class="mb-4">
-            <label for="title" class="block mb-2 font-bold text-gray-700">Title</label>
-            <input type="text" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40" id="title" name="title" value="{{ $guide->title }}" required>
+            <label for="title" class="block mb-2 font-bold text-gray-200">Title</label>
+            <input type="text" style="background-color: #333" class="block w-full px-4 py-2 text-gray-200 border rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40" id="title" name="title" value="{{ $guide->title }}" required>
         </div>
         <div class="mb-4">
-            <label for="content" class="block mb-2 font-bold text-gray-700">Content</label>
-            <textarea class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40" id="content" name="content" rows="4">{{ $guide->content }}</textarea>
+            <label for="content" class="block mb-2 font-bold text-gray-200">Content</label>
+            <textarea id="content" name="content" rows="4">{{ $guide->content }}</textarea>
         </div>
         <div class="mb-4">
-            <label for="game_id" class="block text-gray-700 font-bold mb-2">Select Game</label>
-            <select id="game_id" name="game_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            <label for="game_id" class="block text-gray-200 font-bold mb-2">Select Game</label>
+            <select id="game_id" name="game_id" style="background-color: #333" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline" required>
                 @foreach ($games as $id => $name)
                     <option value="{{ $id }}" {{ $guide->game_id == $id ? 'selected' : '' }}>{{ $name }}</option>
                 @endforeach
             </select>
         </div>        
         <div class="mb-4">
-            <label for="image" class="block mb-2 font-bold text-gray-700">Guide Images</label>
+            <label for="image" class="block mb-2 font-bold text-gray-200">Guide Images</label>
                 @foreach($guide->images as $image)
-                    <img src="{{ asset('images/' . $image->path) }}" alt="Guide Image" class="game-image w-full object-cover rounded">
+                    <img src="{{ asset('images/' . $image->path) }}" alt="Guide Image" class="game-image w-2/5 object-cover rounded">
                 @endforeach
-            <input type="file" id="image" name="images[]" accept="image/*" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40">
+            <input type="file" id="image" name="images[]" accept="image/*" style="background-color: #333" class="block w-full px-4 py-2 text-gray-200  border rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40">
         </div>
         
         <div class="mb-4">
-            <label for="video" class="block mb-2 font-bold text-gray-700">Guide Videos (optional):</label>
+            <label for="video" class="block mb-2 font-bold text-gray-200">Guide Videos (optional):</label>
             @foreach($guide->videos as $video)
                 <div class="mb-4">
-                    <video width="100%" height="auto" controls class="w-full object-cover rounded">
+                    <video width="100%" height="auto" controls class="w-4/5 object-cover rounded">
                         <source src="{{ asset('videos/' . $video->path) }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
             @endforeach
-            <input type="file" id="video" name="videos[]" accept="video/*" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40">
+            <input type="file" id="video" name="videos[]" accept="video/*" style="background-color: #333" class="block w-full px-4 py-2 text-gray-200  border rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40">
         </div>
 
         <div class="mt-4 flex items-center justify-between">
@@ -67,6 +69,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     tinymce.init({
   selector: '#content',
+  content_style: "body { background-color: #333; color: #ccc; }",
   plugins: 'media link anchor',
   toolbar: 'media link anchor',
   setup: function (editor) {
