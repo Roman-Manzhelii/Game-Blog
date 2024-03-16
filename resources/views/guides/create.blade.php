@@ -16,7 +16,7 @@
             
             <div class="mb-4">
                 <label for="content" class="block text-gray-200 font-bold mb-2">Content</label>
-                <textarea style="background-color: #333" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline" id="content" name="content" rows="6"></textarea>
+                <textarea id="content" name="content" rows="6"></textarea>
             </div>
             
             <div class="mb-4">
@@ -52,6 +52,7 @@
     document.addEventListener("DOMContentLoaded", function() {
 tinymce.init({
   selector: '#content',
+  content_style: "body { background-color: #333; color: #ccc; }",
   plugins: 'media link anchor',
   toolbar: 'media link anchor',
   setup: function (editor) {
