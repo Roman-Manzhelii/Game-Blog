@@ -22,7 +22,7 @@ create database laravelblog;
 exit;
 ```
 
-Setup your database credentials in the .env file <br>
+Set up your database credentials in the .env file <br>
 ```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -39,16 +39,16 @@ php artisan migrate
 
 ## Screenshots
 
-![Homepage](\public\images\Знімок екрана 2024-03-16 032342.png)
+![Homepage](.\public\images\Знімок%20екрана%202024-03-16%20032342.png)
 Home page
 
-![Games](\public\images\Знімок екрана 2024-03-16 032130.png)  
+![Games](.\public\images\Знімок%20екрана%202024-03-16%20032130.png)  
 *Page Games*
 
-![Guides](\public\images\Знімок екрана 2024-03-16 032452.png)  
+![Guides](.\public\images\Знімок%20екрана%202024-03-16%20032452.png)  
 *Page Guids*
 
-![Dashboard](\public\images\Знімок екрана 2024-03-16 032710.png)  
+![Dashboard](.\public\images\Знімок%20екрана%202024-03-16%20032710.png)  
 *One of many reviews*
 
 ## Data Structure
